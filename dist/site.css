@@ -12,6 +12,9 @@ body {
 #map:hover .leaflet-tile {
   filter: saturate(0.5) hue-rotate(45deg) !important;
 }
+#map .leaflet-bottom {
+  display: none;
+}
 
 .search-container {
   top: 10%;
@@ -26,4 +29,9 @@ body {
   color: white;
   padding: 10px;
   width: 100%;
-}/*# sourceMappingURL=site.css.map */
+}
+.search-container #search::placeholder {
+  color: white;
+}
+
+/*# sourceMappingURL=site.css.map */
