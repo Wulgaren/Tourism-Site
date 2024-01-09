@@ -5,10 +5,9 @@ $('#search').on('keydown', addSearchEnter)
 function addSearchEnter(event) {
     let searchInput = $("#search")
 
-    if (event.key == "Enter") {
-        searchLocation(searchInput.val())
-    }
-    else {
+    // Check if input is a letter
+    const isLetter = event.keyCode >= 65 && event.keyCode <= 90 || event.keyCode >= 97 && event.keyCode <= 122
+    if (isLetter) {
         // Clear the previous timeout, if any
         clearTimeout(timeoutId);
 
@@ -20,8 +19,13 @@ function addSearchEnter(event) {
 }
 
 function addDropdown(data) {
+    // Remove search dropdown
+    removeDropdown()
+
+    // Add search dropdown container
     $(".search-container").append(`<ul class="dropdown-menu show"></ul>`)
 
+    // Add locations to dropdown
     data.forEach(element => {
         let item = $(`
             <li><a class="dropdown-item" href="#">${element.display_name}</a></li>
@@ -35,6 +39,7 @@ function addDropdown(data) {
 }
 
 function removeDropdown() {
+    // Remove search dropdown
     $(".search-container .dropdown-menu").remove()
 }
 
@@ -54,4 +59,11 @@ function showInformation(location) {
             Proin convallis volutpat venenatis. Suspendisse potenti. Proin ut maximus ex. Aliquam erat volutpat. Vivamus pellentesque aliquam arcu, a ultrices est lobortis vitae. Donec ac pulvinar lacus, vel vestibulum orci. Nullam semper consectetur ultrices. Praesent scelerisque lorem vitae ipsum porta, at auctor felis dapibus. Nulla pretium, risus ut aliquet pretium, urna elit ultrices diam, quis ultricies risus felis eu nulla.        
         </div>
     `)
+
+    // Remove info-box on outside click
+    setTimeout(function() {
+        $("#main").one('click', function() {
+            $(".info-box").remove();
+        })
+    }, 0)    
 }

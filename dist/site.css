@@ -17,11 +17,15 @@ body {
 }
 
 .search-container {
-  top: 10%;
+  top: 5%;
   left: 50%;
   transform: translate(-50%, 0);
   width: 70%;
   z-index: 1000;
+  opacity: 0.6;
+}
+.search-container:hover {
+  opacity: 1;
 }
 .search-container #search {
   background: #0eb50e;
