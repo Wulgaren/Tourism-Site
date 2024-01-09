@@ -29,14 +29,22 @@ body {
     z-index: 1000;
 
     #search {
-        background: green;
-        border: 1px solid greenyellow;
+        background: #0eb50e;
+        border: 1px solid #084e08;        
         color: white;
         padding: 10px;
         width: 100%;
+        
+        &:focus {
+            box-shadow: 0 0 0 0.25rem rgba(18, 169, 18,.25);
+        }
 
         &::placeholder {
             color: white;
         }
+    }
+
+    .dropdown-menu {
+        margin-top: 45px;
     }
 }

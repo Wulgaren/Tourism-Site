@@ -24,14 +24,20 @@ body {
   z-index: 1000;
 }
 .search-container #search {
-  background: green;
-  border: 1px solid greenyellow;
+  background: #0eb50e;
+  border: 1px solid #084e08;
   color: white;
   padding: 10px;
   width: 100%;
 }
+.search-container #search:focus {
+  box-shadow: 0 0 0 0.25rem rgba(18, 169, 18, 0.25);
+}
 .search-container #search::placeholder {
   color: white;
+}
+.search-container .dropdown-menu {
+  margin-top: 45px;
 }
 
 /*# sourceMappingURL=site.css.map */

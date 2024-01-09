@@ -30,12 +30,17 @@ map.on('click', function (event) {
 });
 
 function updateMarker(location) {
-    marker.setLatLng([location.lat, location.lon]);
+    marker.setLatLng([location.lat, location.lon ?? location.lng]);
+
+    if (!location.display_name) return;
+
     marker.addTo(map)
         .bindPopup(`<p1>${location.display_name}</p1>`).openPopup();
 }
 
 function searchLocation(location) {
+    removeDropdown()
+
     // Use the Nominatim service to convert location name to coordinates
     const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
 
@@ -43,18 +48,9 @@ function searchLocation(location) {
         .then(response => response.json())
         .then(data => {
             if (data.length > 0) {
-                $(".search-container").append(`<ul class="dropdown-menu"></ul>`)
-                data.forEach(element => {
-                    let item = $(`
-                        <li><a class="dropdown-item" href="#">${element.display_name}</a></li>
-                    `).appendTo(".search-container .dropdown-menu")
-
-                    item.on('click', function() {
-                        changeLocation(element)
-                    })
-                });
-                
-            } else {
+                addDropdown(data)
+            }
+            else {
                 alert('Location not found');
             }
         })
@@ -64,7 +60,7 @@ function searchLocation(location) {
 function changeLocation(location) {
     console.log(location)
 
-    map.setView([location.lat, location.lon], 10);
+    map.setView([location.lat, location.lon ?? location.lng], 10);
 
     // Update the marker position
     updateMarker(location);
