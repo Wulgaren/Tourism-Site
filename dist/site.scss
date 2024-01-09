@@ -1,3 +1,6 @@
+$main: #0eb50e;
+$accent: #084e08;
+
 body {
     height: 100dvh;
     width: 100%;
@@ -29,14 +32,15 @@ body {
     z-index: 1000;
 
     #search {
-        background: #0eb50e;
-        border: 1px solid #084e08;        
+        background: $main;
+        background-color: $main;
+        border: 1px solid $accent;        
         color: white;
         padding: 10px;
         width: 100%;
         
         &:focus {
-            box-shadow: 0 0 0 0.25rem rgba(18, 169, 18,.25);
+            box-shadow: 0 0 0 0.25rem rgba($main,.25);
         }
 
         &::placeholder {
@@ -47,4 +51,18 @@ body {
     .dropdown-menu {
         margin-top: 45px;
     }
+}
+
+.info-box {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    z-index: 10000;
+    width: 30%;
+    max-height: 100%;
+    padding: 15px;
+    background: $accent;
+    overflow-y: auto;
+    border-left: 1px solid $main;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

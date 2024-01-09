@@ -25,19 +25,34 @@ body {
 }
 .search-container #search {
   background: #0eb50e;
+  background-color: #0eb50e;
   border: 1px solid #084e08;
   color: white;
   padding: 10px;
   width: 100%;
 }
 .search-container #search:focus {
-  box-shadow: 0 0 0 0.25rem rgba(18, 169, 18, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(14, 181, 14, 0.25);
 }
 .search-container #search::placeholder {
   color: white;
 }
 .search-container .dropdown-menu {
   margin-top: 45px;
+}
+
+.info-box {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  z-index: 10000;
+  width: 30%;
+  max-height: 100%;
+  padding: 15px;
+  background: #084e08;
+  overflow-y: auto;
+  border-left: 1px solid #0eb50e;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 /*# sourceMappingURL=site.css.map */

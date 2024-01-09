@@ -36,6 +36,12 @@ function updateMarker(location) {
 
     marker.addTo(map)
         .bindPopup(`<p1>${location.display_name}</p1>`).openPopup();
+
+    const popup = marker.getPopup()
+
+    $(popup._wrapper).on('click', function() {
+        showInformation(location)
+    })
 }
 
 function searchLocation(location) {
