@@ -3,9 +3,12 @@
 // you might also see people declaring variables using `const` and `let`
 var map = L.map('map', {
     // Set latitude and longitude of the map center (required)
-    center: [38.89, -77.03],
+    center: [49.83, 19.05],
     // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
-    zoom: 11
+    zoom: 11,
+    // Set map bounds
+    maxBounds: new L.LatLngBounds(new L.LatLng(49.9, 18.91), new L.LatLng(49,57, 19.12)),
+    maxBoundsViscosity: 1.0
 });
 
 // Create a Tile Layer and add it to the map
@@ -15,7 +18,7 @@ var tiles = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 }).addTo(map);
 
 var marker = L.marker(
-    [38.89, -77.03],
+    [49.83, 19.05],
     {
         draggable: true,
         title: "",
@@ -49,6 +52,8 @@ function searchLocation(location) {
         .then(response => response.json())
         .then(data => {
             searchRequest = null;
+            data = data.filter(x => x.addresstype != "state")
+            console.log(data)
 
             if (data.length > 0) {
                 addDropdown(data)

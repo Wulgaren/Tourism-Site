@@ -1,4 +1,4 @@
-var searchRequest = null;
+var searchRequest;
 var timeoutId;
 
 $('#search').on('keydown', addSearchEnter)
@@ -6,7 +6,7 @@ $('#search').on('keydown', addSearchEnter)
 getLocation();
 
 function addSearchEnter(event) {
-    let searchInput = $("#search")
+    const searchInput = $("#search")
 
     // Check if input is a letter
     const isLetter = event.keyCode >= 65 && event.keyCode <= 90 || event.keyCode >= 97 && event.keyCode <= 122
@@ -25,7 +25,7 @@ function addSearchEnter(event) {
 }
 
 function isRunningOnMobile() {
-    let smallWidth = window.matchMedia('(max-device-width: 960px)').matches || window.innerWidth <= 960
+    const smallWidth = window.matchMedia('(max-device-width: 960px)').matches || window.innerWidth <= 960
     return (((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) && smallWidth) || smallWidth)
 }
 
