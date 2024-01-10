@@ -1,13 +1,11 @@
 // Initialize the map and assign it to a variable for later use
-// there's a few ways to declare a VARIABLE in javascript.
-// you might also see people declaring variables using `const` and `let`
 var map = L.map('map', {
     // Set latitude and longitude of the map center (required)
     center: [49.83, 19.05],
     // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
     zoom: 11,
     // Set map bounds
-    maxBounds: new L.LatLngBounds(new L.LatLng(49.9, 18.91), new L.LatLng(49,57, 19.12)),
+    maxBounds: new L.LatLngBounds(new L.LatLng(49.9, 18.91), new L.LatLng(49, 57, 19.12)),
     maxBoundsViscosity: 1.0
 });
 
@@ -26,17 +24,16 @@ var marker = L.marker(
     }).addTo(map)
 
 function updateMarker(location) {
-    marker.setLatLng([location.lat, location.lon ?? location.lng]);
+    marker.setLatLng([location.lat, location.lng]);
 
     if (!location.display_name) return;
 
     marker.addTo(map)
         .bindPopup(`<p1>${location.display_name}</p1>`).openPopup();
 
-
     // Add popup on marker click
     const popup = marker.getPopup()
-    $(popup._wrapper).on('click', function() {
+    $(popup._wrapper).on('click', function () {
         animateInfoBoxHiding()
         showInformation(location)
     })
@@ -52,14 +49,19 @@ function searchLocation(location) {
         .then(response => response.json())
         .then(data => {
             searchRequest = null;
-            data = data.filter(x => x.addresstype != "state")
+            data = data
+                .filter(x => x.addresstype != "state")
+                .map(obj => {
+                    // Add lng property because API returns lon
+                    return { ...obj, lng: obj.lon };
+                })
             console.log(data)
 
             if (data.length > 0) {
                 addDropdown(data)
             }
             else {
-                alert('Location not found');
+                alert('Location not found.');
             }
         })
         .catch(error => console.error('Error:', error));
@@ -68,7 +70,14 @@ function searchLocation(location) {
 function changeLocation(location) {
     console.log(location)
 
-    map.setView([location.lat, location.lon ?? location.lng], 10);
+    const mapBounds = map.getBounds()
+
+    if (!mapBounds.contains(location)) {
+        alert("Sorry, the city is outside the map's coverage area.")
+        return;
+    }
+
+    map.setView([location.lat, location.lng], 10);
 
     // Update the marker position
     updateMarker(location);

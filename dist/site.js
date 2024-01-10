@@ -98,8 +98,7 @@ function animateInfoBoxShowing(infoBox = $('.info-box')) {
         endCSS = { bottom: 0 }
     }
 
-    infoBox.css(startCSS)
-    infoBox.animate(endCSS, 450)
+    infoBox.css(startCSS).animate(endCSS, 450)
 }
 
 function animateInfoBoxHiding(infoBox = $('.info-box')) {
