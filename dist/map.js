@@ -6,8 +6,8 @@ var map = L.map('map', {
     zoom: 11,
     // Set map bounds
     maxBounds: new L.latLngBounds(
-        L.latLng(49.8238, 18.8786), // Southwest corner (Czechowice-Dziedzice)
-        L.latLng(49.6765, 19.1416)  // Northeast corner (Ujsoły)
+        L.latLng(51, 18), // Southwest corner (Czechowice-Dziedzice)
+        L.latLng(48, 20)  // Northeast corner (Ujsoły)
     ),
     maxBoundsViscosity: 1.0
 });
@@ -47,21 +47,20 @@ function searchLocation(location) {
     removeDropdown()
 
     // Use the Nominatim service to convert location name to coordinates
-    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&country=poland&city=${encodeURIComponent(location)}`;
 
     searchRequest = fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             searchRequest = null;
-            data = data
-                .filter(x => x.addresstype == "city")
-                .map(obj => {
+
+            if (data.length) {
+                data = data.map(obj => {
                     // Add lng property because API returns lon
                     return { ...obj, lng: obj.lon };
                 })
-            console.log(data)
 
-            if (data.length > 0) {
                 addDropdown(data)
             }
             else {
