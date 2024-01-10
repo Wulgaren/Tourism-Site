@@ -68,3 +68,16 @@ function changeLocation(location) {
     // Update the marker position
     updateMarker(location);
 }
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.error("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    const location = { lat: position.coords.latitude, lon: position.coords.longitude }
+    changeLocation(location)
+}

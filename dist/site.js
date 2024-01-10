@@ -3,6 +3,8 @@ var timeoutId;
 
 $('#search').on('keydown', addSearchEnter)
 
+getLocation();
+
 function addSearchEnter(event) {
     let searchInput = $("#search")
 
@@ -73,12 +75,14 @@ function showInformation(location) {
 
     animateInfoBoxShowing(infoBox)
 
-    infoBox.on('swiped-down', function () {
-        animateInfoBoxHiding(infoBox)
-    })
-
-    // Remove info-box on outside click
     setTimeout(function () {
+        // Remove info-box on outside click
+        const swipeWhere = isRunningOnMobile() ? 'swiped-down' : 'swiped-right'
+        infoBox.on(swipeWhere, function () {
+            animateInfoBoxHiding(infoBox)
+        })
+
+        // Remove info-box on outside click
         $("#main").one('click', function () {
             animateInfoBoxHiding(infoBox)
         })
