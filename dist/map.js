@@ -5,7 +5,10 @@ var map = L.map('map', {
     // Set the initial zoom level, values 0-18, where 0 is most zoomed-out (required)
     zoom: 11,
     // Set map bounds
-    maxBounds: new L.LatLngBounds(new L.LatLng(49.9, 18.91), new L.LatLng(49, 57, 19.12)),
+    maxBounds: new L.latLngBounds(
+        L.latLng(49.8238, 18.8786), // Southwest corner (Czechowice-Dziedzice)
+        L.latLng(49.6765, 19.1416)  // Northeast corner (Ujsoły)
+    ),
     maxBoundsViscosity: 1.0
 });
 
@@ -51,7 +54,7 @@ function searchLocation(location) {
         .then(data => {
             searchRequest = null;
             data = data
-                .filter(x => x.addresstype != "state")
+                .filter(x => x.addresstype == "city")
                 .map(obj => {
                     // Add lng property because API returns lon
                     return { ...obj, lng: obj.lon };
@@ -71,7 +74,7 @@ function searchLocation(location) {
 function changeLocation(location) {
     console.log(location)
 
-    const mapBounds = map.getBounds()
+    const mapBounds = map.options.maxBounds
 
     if (!mapBounds.contains(location)) {
         alert("Sorry, the city is outside the map's coverage area.")
