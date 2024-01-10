@@ -1,5 +1,30 @@
 $main: #0eb50e;
-$accent: #084e08;
+$accent: #138313;
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(207, 207, 207, 0.90);
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(207, 207, 207, 1.00);
+}
+/* end of custom scrollbar */
+
+body {
+    font-size: calc(15px + 0.390625vw);
+}
 
 body {
     height: 100dvh;
@@ -22,6 +47,10 @@ body {
     .leaflet-bottom {
         display: none;
     }
+
+    .leaflet-popup {
+        max-width: 95dvw;
+    }
 }
 
 .search-container {
@@ -30,7 +59,7 @@ body {
     transform: translate(-50%, 0);
     width: 70%;
     z-index: 1000;
-    opacity: 0.6;
+    opacity: 0.65;
 
     &:hover {
         opacity: 1;
@@ -55,19 +84,56 @@ body {
 
     .dropdown-menu {
         margin-top: 45px;
+        max-width: 95dvw;
+
+        a {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 }
 
 .info-box {
+    color: white;
     position: absolute;
     top: 0;
     right: 5px;
     z-index: 10000;
-    width: 30%;
-    max-height: 100%;
-    padding: 15px;
-    background: $accent;
+
     overflow-y: auto;
-    border-left: 1px solid $main;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 30%;
+    max-width: 100%;
+    max-height: calc(100% - 20px);
+
+    padding: 15px;
+    margin: 10px 0 10px 10px;
+
+    background: $accent;
+    border: 1px solid $main;
+    border-radius: 15px 0 0 15px;
+    box-shadow: rgba($main, 0.35) 0px 0px 15px 8px;
+}
+
+@media (max-width: 768px) {
+     .info-box {
+        inset: 0;
+        top: unset;
+        width: calc(100% - 20px);
+        height: 45%;
+
+        margin: 10px;
+        border-radius: 15px;
+
+        &::after {
+            content: "";
+            width: 50px;
+            border: 1px solid white;
+            border-radius: 5px;
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+     }   
 }

@@ -1,3 +1,28 @@
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(207, 207, 207, 0.9);
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(207, 207, 207);
+}
+
+/* end of custom scrollbar */
+body {
+  font-size: calc(15px + 0.390625vw);
+}
+
 body {
   height: 100dvh;
   width: 100%;
@@ -15,6 +40,9 @@ body {
 #map .leaflet-bottom {
   display: none;
 }
+#map .leaflet-popup {
+  max-width: 95dvw;
+}
 
 .search-container {
   top: 5%;
@@ -22,7 +50,7 @@ body {
   transform: translate(-50%, 0);
   width: 70%;
   z-index: 1000;
-  opacity: 0.6;
+  opacity: 0.65;
 }
 .search-container:hover {
   opacity: 1;
@@ -30,7 +58,7 @@ body {
 .search-container #search {
   background: #0eb50e;
   background-color: #0eb50e;
-  border: 1px solid #084e08;
+  border: 1px solid #138313;
   color: white;
   padding: 10px;
   width: 100%;
@@ -43,20 +71,51 @@ body {
 }
 .search-container .dropdown-menu {
   margin-top: 45px;
+  max-width: 95dvw;
+}
+.search-container .dropdown-menu a {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .info-box {
+  color: white;
   position: absolute;
   top: 0;
   right: 5px;
   z-index: 10000;
-  width: 30%;
-  max-height: 100%;
-  padding: 15px;
-  background: #084e08;
   overflow-y: auto;
-  border-left: 1px solid #0eb50e;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 30%;
+  max-width: 100%;
+  max-height: calc(100% - 20px);
+  padding: 15px;
+  margin: 10px 0 10px 10px;
+  background: #138313;
+  border: 1px solid #0eb50e;
+  border-radius: 15px 0 0 15px;
+  box-shadow: rgba(14, 181, 14, 0.35) 0px 0px 15px 8px;
+}
+
+@media (max-width: 768px) {
+  .info-box {
+    inset: 0;
+    top: unset;
+    width: calc(100% - 20px);
+    height: 45%;
+    margin: 10px;
+    border-radius: 15px;
+  }
+  .info-box::after {
+    content: "";
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 5px;
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 /*# sourceMappingURL=site.css.map */

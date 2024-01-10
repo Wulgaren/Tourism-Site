@@ -1,3 +1,4 @@
+var searchRequest = null;
 var timeoutId;
 
 $('#search').on('keydown', addSearchEnter)
@@ -7,7 +8,10 @@ function addSearchEnter(event) {
 
     // Check if input is a letter
     const isLetter = event.keyCode >= 65 && event.keyCode <= 90 || event.keyCode >= 97 && event.keyCode <= 122
-    if (isLetter) {
+    // Check if input is a backspace or space or enter (with added check before resending request)
+    const isBackspaceOrSpaceOrEnter = event.keyCode == 32 || event.keyCode == 8 || event.keyCode == 13 && searchInput.is(":focus") && !searchRequest
+
+    if (isLetter || isBackspaceOrSpaceOrEnter) {
         // Clear the previous timeout, if any
         clearTimeout(timeoutId);
 
@@ -60,10 +64,20 @@ function showInformation(location) {
         </div>
     `)
 
+    let infoBox = $('.info-box')
+
+    infoBox.on('swiped-down', function() {
+        infoBox.animate({
+            bottom: -1000
+        }, 600, function() {
+            infoBox.remove();
+        })
+    })
+
     // Remove info-box on outside click
     setTimeout(function() {
         $("#main").one('click', function() {
-            $(".info-box").remove();
+            infoBox.remove();
         })
     }, 0)    
 }

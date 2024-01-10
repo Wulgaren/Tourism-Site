@@ -22,13 +22,6 @@ var marker = L.marker(
         opacity: 0.75
     }).addTo(map)
 
-
-// Add a listener to the map for clicks
-map.on('click', function (event) {
-    const clickedLocation = event.latlng;
-    updateMarker(clickedLocation);
-});
-
 function updateMarker(location) {
     marker.setLatLng([location.lat, location.lon ?? location.lng]);
 
@@ -51,9 +44,11 @@ function searchLocation(location) {
     // Use the Nominatim service to convert location name to coordinates
     const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
 
-    fetch(apiUrl)
+    searchRequest = fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
+            searchRequest = null;
+
             if (data.length > 0) {
                 addDropdown(data)
             }

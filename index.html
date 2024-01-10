@@ -16,17 +16,20 @@
     <link rel="stylesheet" href="extensions/leaflet/leaflet.css"/>
     <script src="extensions/leaflet/leaflet.js"></script>
 
+    <!-- swiped events -->
+    <script src="extensions/swiped-events/swiped-events.js"></script>
+
     <!-- our -->
     <link rel="stylesheet" href="dist/site.css">
     <script src="dist/map.js" defer></script>
     <script src="dist/site.js" defer></script>
 </head>
 <body>
-    <div id="main" class="container-fluid h-100 w-100 position-relative">
+    <div id="main" class="container-fluid h-100 w-100 position-relative p-0">
         <div id="map"></div>
 
         <div class="search-container container d-flex justify-content-center position-absolute">
-            <input id="search" type="search" class="form-control" placeholder="Wpisz aby wyszukać" data-filter="https://nominatim.openstreetmap.org/search?format=json&q=#QUERY#">
+            <input id="search" type="search" class="form-control" placeholder="Wpisz aby wyszukać">
         </div>
 
     </div>
