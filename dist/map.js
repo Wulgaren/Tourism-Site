@@ -29,7 +29,8 @@ function updateMarker(location) {
     if (!location.display_name) return;
 
     marker.addTo(map)
-        .bindPopup(`<p1>${location.display_name}</p1>`).openPopup();
+        .bindPopup(`<p1>${location.display_name}</p1>`)
+        .openPopup();
 
     // Add popup on marker click
     const popup = marker.getPopup()
