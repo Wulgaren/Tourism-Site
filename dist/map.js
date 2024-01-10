@@ -34,6 +34,7 @@ function updateMarker(location) {
     // Add popup on marker click
     const popup = marker.getPopup()
     $(popup._wrapper).on('click', function() {
+        animateInfoBoxHiding()
         showInformation(location)
     })
 }

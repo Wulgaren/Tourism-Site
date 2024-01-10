@@ -22,6 +22,11 @@ function addSearchEnter(event) {
     }
 }
 
+function isRunningOnMobile() {
+    let smallWidth = window.matchMedia('(max-device-width: 960px)').matches || window.innerWidth <= 960
+    return (((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) && smallWidth) || smallWidth)
+}
+
 function addDropdown(data) {
     // Remove search dropdown
     removeDropdown()
@@ -66,18 +71,39 @@ function showInformation(location) {
 
     let infoBox = $('.info-box')
 
-    infoBox.on('swiped-down', function() {
-        infoBox.animate({
-            bottom: -1000
-        }, 600, function() {
-            infoBox.remove();
-        })
+    animateInfoBoxShowing(infoBox)
+
+    infoBox.on('swiped-down', function () {
+        animateInfoBoxHiding(infoBox)
     })
 
     // Remove info-box on outside click
-    setTimeout(function() {
-        $("#main").one('click', function() {
-            infoBox.remove();
+    setTimeout(function () {
+        $("#main").one('click', function () {
+            animateInfoBoxHiding(infoBox)
         })
-    }, 0)    
+    }, 0)
+}
+
+function animateInfoBoxShowing(infoBox = $('.info-box')) {
+    let startCSS = { right: -1000 }
+    let endCSS = { right: 5 }
+
+    if (isRunningOnMobile()) {
+        startCSS = { bottom: -1000 }
+        endCSS = { bottom: 0 }
+    }
+
+    infoBox.css(startCSS)
+    infoBox.animate(endCSS, 450)
+}
+
+function animateInfoBoxHiding(infoBox = $('.info-box')) {
+    let endCSS = { right: -1000 }
+
+    if (isRunningOnMobile()) endCSS = { bottom: -1000 }
+
+    infoBox.animate(endCSS, 600, function () {
+        infoBox.remove();
+    })
 }
