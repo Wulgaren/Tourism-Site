@@ -93,6 +93,6 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    const location = { lat: position.coords.latitude, lon: position.coords.longitude }
+    const location = { lat: position.coords.latitude, lng: position.coords.longitude }
     changeLocation(location)
 }
