@@ -18,25 +18,35 @@ var tiles = new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     minZoom: '15'
 }).addTo(map);
 
-var marker = L.marker(
+
+var currentLocation = L.marker(
     [49.83, 19.05],
+    {
+        draggable: true,
+        title: "Your current location",
+        opacity: 0.75
+    }).addTo(map).bindPopup(`<p1>Your current location</p1>`, {closeOnClick: false, autoClose: false})
+    .openPopup();
+
+var marker = L.marker(
+    [48.83, 19.05],
     {
         draggable: true,
         title: "",
         opacity: 0.75
     }).addTo(map)
 
-function updateMarker(location) {
-    marker.setLatLng([location.lat, location.lng]);
+function updateMarker(location, markerToSet = marker) {
+    markerToSet.setLatLng([location.lat, location.lng]);
 
     if (!location.display_name) return;
 
-    marker.addTo(map)
+    markerToSet.addTo(map)
         .bindPopup(`<p1>${location.display_name}</p1>`)
         .openPopup();
 
     // Add popup on marker click
-    const popup = marker.getPopup()
+    const popup = markerToSet.getPopup()
     $(popup._wrapper).on('click', function () {
         animateInfoBoxHiding()
         showInformation(location)
@@ -70,7 +80,7 @@ function searchLocation(location) {
         .catch(error => console.error('Error:', error));
 }
 
-function changeLocation(location) {
+function changeLocation(location, markerToSet = marker) {
     console.log(location)
 
     const mapBounds = map.options.maxBounds
@@ -83,7 +93,7 @@ function changeLocation(location) {
     map.setView([location.lat, location.lng], 10);
 
     // Update the marker position
-    updateMarker(location);
+    updateMarker(location, markerToSet);
 }
 
 function getLocation() {
@@ -96,5 +106,5 @@ function getLocation() {
 
 function showPosition(position) {
     const location = { lat: position.coords.latitude, lng: position.coords.longitude }
-    changeLocation(location)
+    changeLocation(location, currentLocation)
 }
